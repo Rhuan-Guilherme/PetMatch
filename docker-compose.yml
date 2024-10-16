@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api-petmatch: 
+    image: 'bitnami/postgresql'
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=petmatch
+      - POSTGRESQL_PASSWORD=petmatch
+      - POSTGRESQL_DATABASE=apipetmatch
