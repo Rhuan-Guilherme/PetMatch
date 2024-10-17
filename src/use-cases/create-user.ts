@@ -22,7 +22,7 @@ export class CreateUserUseCase {
   }: CreateUserRequest): Promise<CreateUserResponse> {
     const findUserEmail = await this.userRepository.findByEmail(email)
 
-    if(findUserEmail){
+    if (findUserEmail) {
       throw new EmailAlreadyExistsError()
     }
 
