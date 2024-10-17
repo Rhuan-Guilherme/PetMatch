@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch ./src/server.ts",
-    "build": "tsup src --out-dir ./build"
+    "build": "tsup src --out-dir ./build",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
