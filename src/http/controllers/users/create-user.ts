@@ -1,8 +1,9 @@
+import { EmailAlreadyExistsError } from '@/use-cases/Error/email-already-exists-error'
 import { makeCreateUser } from '@/use-cases/factory/make-create-user'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export function createUser(request: FastifyRequest, reply: FastifyReply) {
+export async function createUser(request: FastifyRequest, reply: FastifyReply) {
   const userSchema = z.object({
     name: z.string(),
     email: z.string().email(),
@@ -13,9 +14,13 @@ export function createUser(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const userUseCase = makeCreateUser()
-    userUseCase.execute({ name, email, password })
+    await userUseCase.execute({ name, email, password })
   } catch (error) {
-    return reply.status(400).send({ message: error })
+    if (error instanceof EmailAlreadyExistsError) {
+      return reply.status(409).send({ message: error.message })
+    }
+
+    throw error
   }
 
   return reply.status(201).send({ message: 'Cadastro criado com sucesso.' })
