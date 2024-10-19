@@ -1,9 +1,8 @@
 # RFs (Requisitos funcionais)
 
-- [ ] Deve ser possível se cadastrar como um usuário;
+- [x] Deve ser possível se cadastrar como um usuário;
 - [ ] Deve ser possível realizar login como um usuário;
-- [ ] Deve ser possível se cadastrar como uma ORG;
-- [ ] Deve ser possível realizar login como uma ORG;
+- [ ] Deve ser possível um usuário possuir uma ORG em seu registro;
 - [ ] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível cadastrar um pet;
 - [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade;
