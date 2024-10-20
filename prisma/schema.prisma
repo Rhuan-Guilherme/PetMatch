@@ -25,6 +25,42 @@ model User {
   email         String @unique
   role          Roles  @default(MEMBER)
   password_hash String
+  Org           Org?
 
   @@map("users")
+}
+
+model Org {
+  id          String   @id @default(uuid())
+  name        String
+  phone       String
+  description String
+  cidade      String
+  created_at  DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  Pet    Pet[]
+
+  @@map("orgs")
+}
+
+enum Race {
+  DOG
+  CAT
+  OTHERS
+}
+
+model Pet {
+  id         String   @id @default(uuid())
+  name       String
+  age        Int
+  color      String
+  race       Race
+  created_at DateTime @default(now())
+
+  org   Org    @relation(fields: [orgId], references: [id])
+  orgId String
+
+  @@map("pets")
 }
