@@ -12,11 +12,25 @@ export class InMemoryOrgRepository implements OrgRepositoryInterface {
       cidade: data.cidade,
       description: data.description,
       phone: data.phone,
-      user_id: data.user as unknown as string,
+      user_id: (data.user as { connect: { id: string } }).connect.id,
       created_at: new Date(),
     }
 
     this.items.push(org)
+
+    return org
+  }
+
+  async findByUser(userId: string): Promise<Org | null> {
+    const org = this.items.find((org) => {
+      console.log(org.user_id)
+      console.log(userId)
+      return org.user_id === userId
+    })
+
+    if (!org) {
+      return null
+    }
 
     return org
   }

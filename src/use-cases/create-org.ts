@@ -2,6 +2,7 @@ import { OrgRepositoryInterface } from '@/repositories/org-repository-interface'
 import { UserRepositoryInterface } from '@/repositories/user-repository-interface'
 import { Org } from '@prisma/client'
 import { ParameterNotFoundError } from './Error/parameter-not-found-error'
+import { OrgAlreadyExistsByUserError } from './Error/org-already-exists-by-user-error'
 
 interface CreateOrgRequest {
   name: string
@@ -31,6 +32,12 @@ export class CreateOrgUseCase {
 
     if (!user) {
       throw new ParameterNotFoundError()
+    }
+
+    const findOrgAlreadyExists = await this.orgRepository.findByUser(user.id)
+
+    if (findOrgAlreadyExists) {
+      throw new OrgAlreadyExistsByUserError()
     }
 
     const org = await this.orgRepository.create({

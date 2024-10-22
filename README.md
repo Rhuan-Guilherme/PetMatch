@@ -1,9 +1,9 @@
 # RFs (Requisitos funcionais)
 
 - [x] Deve ser possível se cadastrar como um usuário;
-- [ ] Deve ser possível realizar login como um usuário;
-- [ ] Deve ser possível um usuário possuir uma ORG em seu registro;
-- [ ] Deve ser possível obter o perfil de um usuário logado;
+- [x] Deve ser possível realizar login como um usuário;
+- [x] Deve ser possível um usuário possuir uma ORG em seu registro;
+- [x] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível cadastrar um pet;
 - [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade;
 - [ ] Deve ser possível filtrar pets por suas características;
@@ -22,7 +22,7 @@
 
 # RNFs (Requisitos não funcionais)
 
-- [ ] A senhra do usuário precisa estar criptografada;
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
+- [x] A senhra do usuário precisa estar criptografada;
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);

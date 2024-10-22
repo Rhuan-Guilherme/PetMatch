@@ -4,6 +4,7 @@ import { hash } from 'bcryptjs'
 import { InMemoryOrgRepository } from '@/repositories/in-memory/in-memory-org-repository'
 import { CreateOrgUseCase } from '../create-org'
 import { ParameterNotFoundError } from '../Error/parameter-not-found-error'
+import { OrgAlreadyExistsByUserError } from '../Error/org-already-exists-by-user-error'
 
 let userRepository: InMemoryUserRepository
 let orgRepository: InMemoryOrgRepository
@@ -45,5 +46,31 @@ describe('Criação de uma ORG', () => {
         userId: 'not-exists-id',
       }),
     ).rejects.toBeInstanceOf(ParameterNotFoundError)
+  })
+
+  test('Não deve ser possível criar mais de uma ORG por usuário.', async () => {
+    const user = await userRepository.create({
+      name: 'Jonh Doe',
+      email: 'jonhdoe@example.com',
+      password_hash: await hash('123456', 6),
+    })
+
+    await sup.execute({
+      name: 'DogCia',
+      cidade: 'Brasília',
+      description: 'Venha adotar seu pet',
+      phone: '(61) 999999999',
+      userId: user.id,
+    })
+
+    expect(() =>
+      sup.execute({
+        name: 'DogCia',
+        cidade: 'Brasília',
+        description: 'Venha adotar seu pet',
+        phone: '(61) 999999999',
+        userId: user.id,
+      }),
+    ).rejects.toBeInstanceOf(OrgAlreadyExistsByUserError)
   })
 })

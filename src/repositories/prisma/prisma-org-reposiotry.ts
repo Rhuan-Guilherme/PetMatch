@@ -10,4 +10,14 @@ export class PrismaOrgRepository implements OrgRepositoryInterface {
 
     return org
   }
+
+  async findByUser(userId: string): Promise<Org | null> {
+    const org = prisma.org.findUnique({
+      where: {
+        user_id: userId,
+      },
+    })
+
+    return org
+  }
 }
