@@ -23,9 +23,19 @@ export class InMemoryOrgRepository implements OrgRepositoryInterface {
 
   async findByUser(userId: string): Promise<Org | null> {
     const org = this.items.find((org) => {
-      console.log(org.user_id)
-      console.log(userId)
       return org.user_id === userId
+    })
+
+    if (!org) {
+      return null
+    }
+
+    return org
+  }
+
+  async findById(orgId: string): Promise<Org | null> {
+    const org = this.items.find((org) => {
+      return org.id === orgId
     })
 
     if (!org) {
